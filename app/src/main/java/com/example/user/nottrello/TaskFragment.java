@@ -7,6 +7,9 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 /**
@@ -17,6 +20,8 @@ public class TaskFragment extends Fragment {
 
     private Task mTask;
     private EditText mTitleField;
+    private Button mDateButton;
+    private CheckBox mCompletedCheckBox;
 
 
     @Override
@@ -30,7 +35,7 @@ public class TaskFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_task, container, false);
 
-        mTitleField = (EditText)v.findViewById(R.id.task_title);
+        mTitleField = (EditText) v.findViewById(R.id.task_title);
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(
@@ -41,7 +46,7 @@ public class TaskFragment extends Fragment {
             @Override
             public void onTextChanged(
                     CharSequence s, int start, int before, int count) {
-                    mTask.setmTitle(s.toString());
+                mTask.setmTitle(s.toString());
             }
 
             @Override
@@ -49,8 +54,21 @@ public class TaskFragment extends Fragment {
 
             }
         });
+
+        mDateButton = (Button) v.findViewById(R.id.task_date);
+        mDateButton.setText(mTask.getmDate().toString());
+        mDateButton.setEnabled(false);
+
+        mCompletedCheckBox = (CheckBox) v.findViewById(R.id.task_completed);
+        mCompletedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mTask.setmCompleted(isChecked);
+            }
+        });
+
         return v;
+
+
     }
-
-
 }

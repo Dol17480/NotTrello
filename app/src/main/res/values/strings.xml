@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">NotTrello</string>
     <string name="task_title_hint">Enter a task to be completed.</string>
+    <string name="task_title_label">Title</string>
+    <string name="task_details_label">Details</string>
+    <string name="task_completed_label">Completed</string>
 </resources>
