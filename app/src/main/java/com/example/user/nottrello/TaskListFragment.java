@@ -1,5 +1,6 @@
 package com.example.user.nottrello;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,15 +33,26 @@ public class TaskListFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
     private void updateUI() {
         TaskLog taskLog = TaskLog.get(getActivity());
         List<Task> tasks = taskLog.getmTasks();
 
-        mAdapter = new TaskAdapter(tasks);
-        mTaskRecyclerView.setAdapter(mAdapter);
+        if (mAdapter == null) {
+            mAdapter = new TaskAdapter(tasks);
+            mTaskRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     private class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         private TextView mTitleTextView;
         private TextView mDateTextView;
         private CheckBox mCompletedCheckBox;
@@ -60,7 +72,8 @@ public class TaskListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(getActivity(),mTask.getmTitle() + " clicked!", Toast.LENGTH_SHORT).show();
+            Intent intent = TaskActivity.newIntent(getActivity(), mTask.getmId());
+            startActivity(intent);
         }
 
         public void bindTask(Task task) {
