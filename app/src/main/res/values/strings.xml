@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NotTrello</string>
+    <tsring name="task_title_hint">Enter a task to be completed.</tsring>
 </resources>
