@@ -72,7 +72,7 @@ public class TaskListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Intent intent = TaskActivity.newIntent(getActivity(), mTask.getmId());
+            Intent intent = TaskPagerActivity.newIntent(getActivity(), mTask.getmId());
             startActivity(intent);
         }
 
