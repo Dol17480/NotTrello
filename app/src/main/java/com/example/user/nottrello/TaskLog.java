@@ -1,6 +1,9 @@
 package com.example.user.nottrello;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.example.user.nottrello.database.TaskBaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +16,8 @@ import java.util.UUID;
 public class TaskLog {
     private static TaskLog sTaskLog;
     private List<Task> mTasks;
+    private Context mContext;
+    private SQLiteDatabase mDatabase;
 
     public static TaskLog get(Context context) {
         if (sTaskLog == null) {
@@ -22,7 +27,8 @@ public class TaskLog {
     }
 
     private TaskLog (Context context) {
-
+        mContext = context.getApplicationContext();
+        mDatabase = new TaskBaseHelper(mContext).getWritableDatabase();
         mTasks = new ArrayList<>();
 
 
