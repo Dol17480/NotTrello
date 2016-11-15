@@ -15,7 +15,11 @@ public class Task {
     private boolean mCompleted;
 
     public Task() {
-        mId = UUID.randomUUID();
+        this(UUID.randomUUID());
+    }
+
+    public Task(UUID id) {
+        mId = id;
         mDate = new Date();
     }
 

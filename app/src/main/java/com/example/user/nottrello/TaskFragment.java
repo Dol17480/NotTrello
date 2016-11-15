@@ -49,7 +49,12 @@ public class TaskFragment extends Fragment {
         super.onCreate(savedInstanceState);
         UUID taskId = (UUID) getArguments().getSerializable(ARG_TASK_ID);
         mTask = TaskLog.get(getActivity()).getTask(taskId);
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        TaskLog.get(getActivity()).updateTask(mTask);
     }
 
     @Override
