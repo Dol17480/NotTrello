@@ -78,8 +78,9 @@ public class TaskFragment extends Fragment {
         });
 
         mDateButton = (Button) v.findViewById(R.id.task_date);
-        updateDate(); {
-             @Override
+        mDateButton.setText(mTask.getmDate().toString());
+        mDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 FragmentManager manager = getActivity().getSupportFragmentManager();
                 DatePickerFragment dialog = DatePickerFragment.newInstance(mTask.getmDate());

@@ -25,13 +25,11 @@ public class TaskLog {
 
         mTasks = new ArrayList<>();
 
-        for (int i = 0; i < 100; i++) {
-            Task task = new Task();
-            task.setmTitle("Task #" +i);
-            task.setmCompleted(i % 2 == 0);
 
-            mTasks.add(task);
-        }
+    }
+
+    public void addTask(Task t) {
+        mTasks.add(t);
     }
 
     public List<Task> getmTasks() {
