@@ -1,7 +1,10 @@
 package com.example.user.nottrello;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -12,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -21,6 +25,9 @@ import java.util.UUID;
 public class TaskFragment extends Fragment {
 
     private static final String ARG_TASK_ID = "task_id";
+    private static final String DIALOG_DATE ="DialogDate";
+
+    private static final int REQUEST_DATE = 0;
 
     private Task mTask;
     private EditText mTitleField;
@@ -71,8 +78,15 @@ public class TaskFragment extends Fragment {
         });
 
         mDateButton = (Button) v.findViewById(R.id.task_date);
-        mDateButton.setText(mTask.getmDate().toString());
-        mDateButton.setEnabled(false);
+        updateDate(); {
+             @Override
+            public void onClick(View v) {
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                DatePickerFragment dialog = DatePickerFragment.newInstance(mTask.getmDate());
+                dialog.setTargetFragment(TaskFragment.this, REQUEST_DATE);
+                dialog.show(manager, DIALOG_DATE);
+            }
+        });
 
         mCompletedCheckBox = (CheckBox) v.findViewById(R.id.task_completed);
         mCompletedCheckBox.setChecked(mTask.ismCompleted());
@@ -86,5 +100,21 @@ public class TaskFragment extends Fragment {
         return v;
 
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == REQUEST_DATE) {
+            Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            mTask.setmDate(date);
+            updateDate();
+        }
+    }
+
+    private void updateDate() {
+        mDateButton.setText(mTask.getmDate().toString());
     }
 }
