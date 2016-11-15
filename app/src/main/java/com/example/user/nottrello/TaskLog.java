@@ -84,6 +84,12 @@ public class TaskLog {
                 new String[] { uuidString });
     }
 
+    public void deleteTask(UUID taskId)
+    {
+        String uuidString = taskId.toString();
+        mDatabase.delete(TaskDbSchema.TaskTable.NAME, TaskDbSchema.TaskTable.Cols.UUID + " = ?", new String[] {uuidString});
+    }
+
     private static ContentValues getContentValues(Task task) {
         ContentValues values = new ContentValues();
         values.put(TaskDbSchema.TaskTable.Cols.UUID, task.getmId().toString());

@@ -68,6 +68,7 @@ public class TaskListFragment extends Fragment {
         }
     }
 
+
     private void updateUI() {
         TaskLog taskLog = TaskLog.get(getActivity());
         List<Task> tasks = taskLog.getmTasks();
@@ -76,6 +77,7 @@ public class TaskListFragment extends Fragment {
             mAdapter = new TaskAdapter(tasks);
             mTaskRecyclerView.setAdapter(mAdapter);
         } else {
+            mAdapter.setmTasks(tasks);
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -140,7 +142,9 @@ public class TaskListFragment extends Fragment {
             return mTasks.size();
         }
 
-        public void 
+        public void setmTasks(List<Task> tasks) {
+            mTasks = tasks;
+        }
 
     }
 
